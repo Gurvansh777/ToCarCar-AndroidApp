@@ -2,7 +2,7 @@ package com.example.tocarcar
 
 class Constants {
     companion object{
-        const val BASE_URL_API = "http://34.204.14.52:5000"
+        const val BASE_URL_API = "http://107.22.138.246:5000"
 
         const val MY_PREFERENCES = "MyPrefs"
         const val USER_EMAIL = "UserEmail"

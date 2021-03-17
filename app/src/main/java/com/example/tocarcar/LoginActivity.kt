@@ -56,12 +56,12 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 }else{
-                    Toast.makeText(applicationContext, "Incorrect email or password!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Incorrect email or password!", Toast.LENGTH_SHORT).show()
                     progressBarLogin.visibility = View.INVISIBLE
                 }
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                Toast.makeText(applicationContext, "Login failed!", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Login failed!", Toast.LENGTH_SHORT).show()
                 Log.e("LOGIN_FAILED", t.toString())
                 progressBarLogin.visibility = View.INVISIBLE
             }

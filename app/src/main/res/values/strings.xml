@@ -8,4 +8,8 @@
     <string name="new_user">New User?</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="save">Save</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
