@@ -1,7 +1,7 @@
 package com.example.tocarcar.api
 
-import com.example.tocarcar.entity.User
 import com.google.gson.JsonObject
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -14,5 +14,5 @@ interface LoginRegistrationAPI {
     fun verifyUser(@Field("email") email : String, @Field("password") password : String): Call<JsonObject>
 
     @POST("api/adduser")
-    fun addUser(@Body user : User) : Call<User>
+    fun addUser(@Body userBody : RequestBody) : Call<JsonObject>
 }

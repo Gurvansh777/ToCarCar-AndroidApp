@@ -5,17 +5,23 @@ import com.google.gson.annotations.SerializedName
 class User(
     @SerializedName("firstName")
     @Expose
-    private val firstName: String,
+    var firstName: String,
 
     @SerializedName("lastName")
     @Expose
-    private val lastName: String,
+    var lastName: String,
 
     @SerializedName("email")
     @Expose
-    private val email: String,
+    var email: String,
 
     @SerializedName("password")
     @Expose
-    private val password : String
-)
+    var password : String
+
+
+) {
+    override fun toString(): String {
+        return "User(firstName='$firstName', lastName='$lastName', email='$email', password='$password')"
+    }
+}

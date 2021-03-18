@@ -7,7 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tocarcar.api.LoginRegistrationAPI
 import com.example.tocarcar.entity.User
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_registration.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,16 +22,18 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        val firstName = etFirstNameReg.text.toString().trim()
-        val lastName = etLastNameReg.text.toString().trim()
-        val email = etEmailReg.text.toString().trim()
-        val password = etPasswordReg.text.toString().trim()
-        val confirmPassword = etConfirmPasswordReg.text.toString().trim()
-
-        val user: User = User(firstName, lastName, email, password)
-
         btnSaveReg.setOnClickListener {
-            addUser(user)
+            val firstName = etFirstNameReg.text.toString().trim()
+            val lastName = etLastNameReg.text.toString().trim()
+            val email = etEmailReg.text.toString().trim()
+            val password = etPasswordReg.text.toString().trim()
+            val confirmPassword = etConfirmPasswordReg.text.toString().trim()
+            if (password == confirmPassword) {
+                val user = User(firstName, lastName, email, password)
+                addUser(user)
+            } else {
+                Toast.makeText(applicationContext, "Passwords does not match!", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -38,18 +43,35 @@ class RegistrationActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create()).build()
         val loginRegistrationAPIService = retroFit.create(LoginRegistrationAPI::class.java)
 
-        val addUser: Call<User> = loginRegistrationAPIService.addUser(user)
+        val requestBody: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("firstName", user.firstName)
+            .addFormDataPart("lastName", user.lastName)
+            .addFormDataPart("email", user.email)
+            .addFormDataPart("password", user.password)
+            .build()
 
-        addUser.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                Toast.makeText(applicationContext, "User Added! Please login", Toast.LENGTH_LONG)
-                    .show()
+        val addUser: Call<JsonObject> = loginRegistrationAPIService.addUser(requestBody)
+
+        addUser.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
+                if (response?.body()?.get("useradded").toString().toInt() != 1) {
+                    Toast.makeText(applicationContext,
+                        "This Email is already registered!",
+                        Toast.LENGTH_LONG)
+                        .show()
+                } else {
+                    Toast.makeText(applicationContext,
+                        "User Added! Please login",
+                        Toast.LENGTH_LONG)
+                        .show()
+                    finish()
+                }
                 progressBarReg.visibility = View.INVISIBLE
-                finish()
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.e("USER_ADD_FAILED", t.message.toString())
+            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
+                Log.e("USER_ADD_FAILED", t?.message.toString())
                 Toast.makeText(applicationContext, "Please try again!", Toast.LENGTH_LONG).show()
                 progressBarReg.visibility = View.INVISIBLE
                 finish()
