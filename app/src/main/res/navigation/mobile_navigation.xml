@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+    android:label="navigation_cars"
     app:startDestination="@+id/navigation_home">
 
     <fragment
@@ -12,14 +13,27 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.tocarcar.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_cars"
+        android:name="com.example.tocarcar.ui.cars.CarsFragment"
+        android:label="@string/title_cars"
+        tools:layout="@layout/fragment_cars" >
+        <action
+            android:id="@+id/action_navigation_cars_to_addCar"
+            app:destination="@id/addCar" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.tocarcar.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/addCar"
+        android:name="com.example.tocarcar.ui.cars.addCar"
+        android:label="fragment_add_car"
+        tools:layout="@layout/fragment_add_car" >
+        <action
+            android:id="@+id/action_addCar_to_navigation_cars"
+            app:destination="@id/navigation_cars" />
+    </fragment>
 </navigation>
