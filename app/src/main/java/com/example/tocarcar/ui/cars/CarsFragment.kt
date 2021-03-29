@@ -6,27 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tocarcar.Constants
-import com.example.tocarcar.R
 import com.example.tocarcar.api.ApiHelper
 import com.example.tocarcar.databinding.FragmentCarsBinding
 import com.example.tocarcar.entity.Car
-import com.example.tocarcar.utility.JsonHelper
 import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.android.synthetic.main.fragment_add_car.*
-import kotlinx.android.synthetic.main.fragment_add_car.btnAddCar
 import kotlinx.android.synthetic.main.fragment_cars.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -75,7 +68,6 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
     }
 
     private fun getUserCars() {
-        //progressBarAddCar.visibility = View.VISIBLE
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
         val apiHelperService = retroFit.create(ApiHelper::class.java)
@@ -92,12 +84,10 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
                 Log.i("USERCARS", jsonCars)
                 var carsList = getCarsFromJson(jsonCars)
                 carsViewModel.carsList.value = carsList
-                //progressBarAddCar.visibility = View.INVISIBLE
             }
 
             override fun onFailure(call: Call<JsonArray>?, t: Throwable?) {
                 Log.e("CAR_ADD_FAILED", t?.message.toString())
-                progressBarAddCar.visibility = View.INVISIBLE
             }
         })
     }
@@ -121,7 +111,9 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
     }
 
 
-    override fun displayCar(carId: String) {
-
+    override fun displayCar(carLicensePlate: String) {
+        Log.e("CAR_PLATE", carLicensePlate)
+        val action = CarsFragmentDirections.actionNavigationCarsToPostingsFragment(carLicensePlate)
+        findNavController().navigate(action)
     }
 }

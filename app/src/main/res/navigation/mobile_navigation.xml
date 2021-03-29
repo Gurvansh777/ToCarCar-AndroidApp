@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_navigation_cars_to_addCar"
             app:destination="@id/addCar" />
+        <action
+            android:id="@+id/action_navigation_cars_to_postingsFragment"
+            app:destination="@id/postingsFragment" />
     </fragment>
 
     <fragment
@@ -31,9 +34,26 @@
         android:id="@+id/addCar"
         android:name="com.example.tocarcar.ui.cars.addCar"
         android:label="fragment_add_car"
-        tools:layout="@layout/fragment_add_car" >
+        tools:layout="@layout/fragment_add_car" />
+    <fragment
+        android:id="@+id/postingsFragment"
+        android:name="com.example.tocarcar.ui.cars.PostingsFragment"
+        android:label="fragment_postings"
+        tools:layout="@layout/fragment_postings" >
+        <argument
+            android:name="carLicensePlate"
+            app:argType="string" />
         <action
-            android:id="@+id/action_addCar_to_navigation_cars"
-            app:destination="@id/navigation_cars" />
+            android:id="@+id/action_postingsFragment_to_addPosting"
+            app:destination="@id/addPosting" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPosting"
+        android:name="com.example.tocarcar.ui.cars.AddPosting"
+        android:label="fragment_add_posting"
+        tools:layout="@layout/fragment_add_posting" >
+        <argument
+            android:name="licensePlate"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -47,14 +47,20 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 Log.i("LOGIN_RESPONSE", response.body().toString())
                 if (response.body()?.get("uservalid").toString().toInt() == 1) {
-                    val spEditor: SharedPreferences.Editor = sharedPreferences.edit()
-                    spEditor.putString(Constants.USER_EMAIL, email)
-                    spEditor.putString(Constants.USER_FIRST_NAME, response.body()?.get("firstName").toString())
-                    spEditor.putString(Constants.USER_LAST_NAME, response.body()?.get("lastName").toString())
-                    spEditor.apply()
+                    if(response.body()?.get("isApproved").toString().toInt() == 1) {
+                        val spEditor: SharedPreferences.Editor = sharedPreferences.edit()
+                        spEditor.putString(Constants.USER_EMAIL, email)
+                        spEditor.putString(Constants.USER_FIRST_NAME,
+                            response.body()?.get("firstName").toString())
+                        spEditor.putString(Constants.USER_LAST_NAME,
+                            response.body()?.get("lastName").toString())
+                        spEditor.apply()
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        finish()
+                    }else{
+                        Toast.makeText(applicationContext, "Please wait while we approve your account!", Toast.LENGTH_SHORT).show()
+                    }
                     progressBarLogin.visibility = View.INVISIBLE
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
                 }else{
                     Toast.makeText(applicationContext, "Incorrect email or password!", Toast.LENGTH_SHORT).show()
                     progressBarLogin.visibility = View.INVISIBLE

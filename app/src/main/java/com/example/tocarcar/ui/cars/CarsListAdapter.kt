@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tocarcar.R
 import com.example.tocarcar.databinding.CardViewCarBinding
 import com.example.tocarcar.entity.Car
-import kotlinx.android.synthetic.main.card_view_car.view.*
 
 class CarsListAdapter (private val carList: List<Car>, private val listener: CarsListItemListener) :
         RecyclerView.Adapter<CarsListAdapter.ViewHolder>() {
@@ -40,6 +39,6 @@ class CarsListAdapter (private val carList: List<Car>, private val listener: Car
         }
 
         interface CarsListItemListener {
-            fun displayCar(carId: String)
+            fun displayCar(carLicensePlate: String)
         }
 }

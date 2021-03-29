@@ -1,16 +1,13 @@
 package com.example.tocarcar.ui.cars
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.tocarcar.entity.Car
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.tocarcar.entity.Posting
 
 class CarsViewModel : ViewModel() {
 
     var carsList = MutableLiveData<List<Car>>()
+    var postingsList = MutableLiveData<List<Posting>>()
 
 }
