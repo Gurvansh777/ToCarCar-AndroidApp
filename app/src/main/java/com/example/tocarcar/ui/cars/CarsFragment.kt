@@ -67,6 +67,11 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
         }
     }
 
+    override fun onResume() {
+        getUserCars()
+        super.onResume()
+    }
+
     private fun getUserCars() {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()

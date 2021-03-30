@@ -59,6 +59,11 @@ class PostingsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        getUserPostings()
+        super.onResume()
+    }
+
     private fun getUserPostings() {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
