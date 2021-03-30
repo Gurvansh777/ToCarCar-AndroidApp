@@ -1,8 +1,8 @@
 package com.example.tocarcar.entity
 
 data class Posting(
-    var licensePlate: String = "",
-    var ownerEmail: String = "",
+    var car: Car = Car(),
+    var email: String = "",
     var dateFrom: String = "",
     var dateTo: String = "",
     var rentPerDay: Float = 0.0F,

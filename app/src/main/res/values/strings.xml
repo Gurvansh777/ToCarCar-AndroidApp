@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ToCarCar</string>
-    <string name="title_home">Home</string>
-    <string name="title_cars">Cars</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">HOME</string>
+    <string name="title_cars">MY CARS</string>
+    <string name="title_findCars">FIND A CAR</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="new_user">New User?</string>

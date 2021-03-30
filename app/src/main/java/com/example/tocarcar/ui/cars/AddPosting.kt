@@ -31,7 +31,7 @@ class AddPosting : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentAddPostingBinding.inflate(inflater, container, false)
-        binding.tvCarLicensePlate.text = args.licensePlate
+        binding.tvCarLicensePlate.text = args.car.licensePlate
         sharedPreferences = requireActivity().getApplicationContext().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
 
@@ -44,7 +44,7 @@ class AddPosting : Fragment() {
             val isBooked = 0
             val bookedBy = ""
 
-            val postingObj = Posting(args.licensePlate, email!!, dateFrom, dateTo, rentPerDay, isApproved, isBooked, bookedBy)
+            val postingObj = Posting(args.car, email!!, dateFrom, dateTo, rentPerDay, isApproved, isBooked, bookedBy)
             addPosting(postingObj)
             findNavController().navigateUp()
         }

@@ -1,8 +1,9 @@
 package com.example.tocarcar.entity
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Car(
     var companyName : String = "",
     var modelName : String = "",
@@ -10,5 +11,5 @@ data class Car(
     var year : Int = 0,
     var kms : Int = 0,
     var ownerEmail: String = ""
-)
+) : Parcelable
 

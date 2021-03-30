@@ -27,7 +27,7 @@ class PostingsListAdapter (private val postingsList: List<Posting>) :
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val posting = postingsList[position]
             with(holder.binding) {
-                var str = "License Plate - ${posting.licensePlate}\n"+
+                var str = "License Plate - ${posting.car.licensePlate}\n"+
                         "From ${posting.dateFrom} to ${posting.dateTo}\n Rent Per Day - $${posting.rentPerDay}"
                 if(posting.isBooked == 1){
                     str+= "Booked By - ${posting.bookedBy}"

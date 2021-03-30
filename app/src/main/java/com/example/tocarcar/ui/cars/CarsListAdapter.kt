@@ -31,7 +31,7 @@ class CarsListAdapter (private val carList: List<Car>, private val listener: Car
                 println("CarModel ${car.modelName}")
                 tvCarDetailsCardView.text = car.modelName
                 root.setOnClickListener{
-                    listener.displayCar(car.licensePlate)
+                    listener.displayCar(position)
                 }
 
             }
@@ -39,6 +39,6 @@ class CarsListAdapter (private val carList: List<Car>, private val listener: Car
         }
 
         interface CarsListItemListener {
-            fun displayCar(carLicensePlate: String)
+            fun displayCar(carPosition: Int)
         }
 }

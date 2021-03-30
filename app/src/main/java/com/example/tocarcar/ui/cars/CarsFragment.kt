@@ -111,9 +111,10 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
     }
 
 
-    override fun displayCar(carLicensePlate: String) {
-        Log.e("CAR_PLATE", carLicensePlate)
-        val action = CarsFragmentDirections.actionNavigationCarsToPostingsFragment(carLicensePlate)
+    override fun displayCar(carPosition: Int) {
+        Log.e("CAR_Position", carPosition.toString())
+        val car = carsViewModel.carsList.value?.get(carPosition)
+        val action = CarsFragmentDirections.actionNavigationCarsToPostingsFragment(car!!)
         findNavController().navigate(action)
     }
 }

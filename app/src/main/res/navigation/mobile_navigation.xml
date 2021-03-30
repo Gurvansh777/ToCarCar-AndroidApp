@@ -26,23 +26,23 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.tocarcar.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_findCars"
+        android:name="com.example.tocarcar.ui.findcars.FindCarsFragment"
+        android:label="@string/title_findCars"
+        tools:layout="@layout/fragment_find_cars" />
     <fragment
         android:id="@+id/addCar"
         android:name="com.example.tocarcar.ui.cars.addCar"
-        android:label="fragment_add_car"
+        android:label="ADD CAR"
         tools:layout="@layout/fragment_add_car" />
     <fragment
         android:id="@+id/postingsFragment"
         android:name="com.example.tocarcar.ui.cars.PostingsFragment"
-        android:label="fragment_postings"
-        tools:layout="@layout/fragment_postings" >
+        android:label="YOUR POSTINGS"
+        tools:layout="@layout/fragment_postings">
         <argument
-            android:name="carLicensePlate"
-            app:argType="string" />
+            android:name="car"
+            app:argType="com.example.tocarcar.entity.Car" />
         <action
             android:id="@+id/action_postingsFragment_to_addPosting"
             app:destination="@id/addPosting" />
@@ -50,10 +50,10 @@
     <fragment
         android:id="@+id/addPosting"
         android:name="com.example.tocarcar.ui.cars.AddPosting"
-        android:label="fragment_add_posting"
-        tools:layout="@layout/fragment_add_posting" >
+        android:label="POST AD"
+        tools:layout="@layout/fragment_add_posting">
         <argument
-            android:name="licensePlate"
-            app:argType="string" />
+            android:name="car"
+            app:argType="com.example.tocarcar.entity.Car" />
     </fragment>
 </navigation>
