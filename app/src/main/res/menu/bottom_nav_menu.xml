@@ -7,13 +7,14 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_cars"
-        android:icon="@drawable/ic_baseline_post_add_24"
-        android:title="@string/title_cars" />
-
-    <item
         android:id="@+id/navigation_findCars"
         android:icon="@drawable/ic_baseline_directions_car_24"
         android:title="@string/title_findCars" />
+
+
+    <item
+        android:id="@+id/navigation_cars"
+        android:icon="@drawable/ic_baseline_post_add_24"
+        android:title="@string/title_cars" />
 
 </menu>

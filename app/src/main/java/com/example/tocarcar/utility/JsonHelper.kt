@@ -23,5 +23,16 @@ class JsonHelper {
                 .build()
             return moshi.adapter(postingType)
         }
+
+        fun getUpdateRequestBody(myQuery: String, updateString: String): String{
+            return "{ " +
+                        "\"myQuery\": $myQuery, " +
+                        "\"newValues\": {" +
+                            "\"\$set\": {" +
+                                "$updateString" +
+                            "}" +
+                        "}" +
+                    "}"
+        }
     }
 }

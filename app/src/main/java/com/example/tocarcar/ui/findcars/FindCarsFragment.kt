@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tocarcar.Constants
 import com.example.tocarcar.api.ApiHelper
 import com.example.tocarcar.databinding.FragmentFindCarsBinding
 import com.example.tocarcar.entity.Posting
+import com.example.tocarcar.ui.cars.CarsFragmentDirections
 import com.google.gson.JsonArray
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -94,5 +96,8 @@ class FindCarsFragment : Fragment() , FindCarsListAdapter.AllPostingsListItemLis
 
     override fun displayPosting(postingPosition: Int) {
         Log.i("SELECTED POSTING INDEX", postingPosition.toString())
+        val posting = findCarsViewModel.allPostingsList.value?.get(postingPosition)
+        val action = FindCarsFragmentDirections.actionNavigationFindCarsToBookCar(posting!!)
+        findNavController().navigate(action)
     }
 }
