@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
 
-        homeBinding.tvLogout.setOnClickListener {
+        homeBinding.btnLogout.setOnClickListener {
             logout()
         }
 

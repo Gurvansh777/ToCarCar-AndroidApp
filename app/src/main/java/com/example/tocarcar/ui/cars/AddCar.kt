@@ -35,23 +35,53 @@ class addCar : Fragment() {
         return inflater.inflate(R.layout.fragment_add_car, container, false)
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnAddCar.setOnClickListener{
+        btnAddCar.setOnClickListener {
             val companyName = etCompanyAddCar.text.toString()
             val modelName = etModelAddCar.text.toString()
             val licensePlate = etLicensePlateAddCar.text.toString()
-            val year = etYearAddCar.text.toString().toInt()
-            val kms = etKmsAddCar.text.toString().toInt()
-
+            val yearStr = etYearAddCar.text.toString()
+            val kmsStr = etKmsAddCar.text.toString()
             val email = sharedPreferences.getString(Constants.USER_EMAIL, "")
 
-            var carObj = Car(companyName, modelName, licensePlate, year, kms, email!!)
-            addCar(carObj)
-            findNavController().navigateUp()
+            if (validateInputs(companyName, modelName, licensePlate, yearStr, kmsStr)) {
+                val carObj = Car(companyName, modelName, licensePlate, yearStr.toInt(), kmsStr.toInt(), email!!)
+                addCar(carObj)
+                findNavController().navigateUp()
+            }
         }
+    }
+
+    private fun validateInputs(
+        companyName: String,
+        modelName: String,
+        licensePlate: String,
+        yearStr: String,
+        kmsStr: String
+    ): Boolean {
+        var result = true
+        if(companyName.isEmpty()){
+            etCompanyAddCar.error = "Cannot be blank"
+            result = false
+        }
+        if(modelName.isEmpty()){
+            etModelAddCar.error = "Cannot be blank"
+            result = false
+        }
+        if(licensePlate.isEmpty()){
+            etLicensePlateAddCar.error = "Cannot be blank"
+            result = false
+        }
+        if(yearStr.isEmpty()){
+            etYearAddCar.error = "Cannot be blank"
+            result = false
+        }
+        if(kmsStr.isEmpty()){
+            etKmsAddCar.error = "Cannot be blank"
+            result = false
+        }
+        return result
     }
 
 

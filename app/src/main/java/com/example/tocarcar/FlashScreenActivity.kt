@@ -4,7 +4,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_flash_screen.*
 
 class FlashScreenActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -12,7 +14,9 @@ class FlashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flash_screen)
+        supportActionBar?.hide()
         sharedPreferences = getSharedPreferences(Constants.MY_PREFERENCES, MODE_PRIVATE)
+        progressBarFlashScreen.visibility = View.VISIBLE
 
         Handler().postDelayed({
             val userEmail = sharedPreferences.getString(Constants.USER_EMAIL, "")
@@ -22,7 +26,8 @@ class FlashScreenActivity : AppCompatActivity() {
             } else {
                 Intent(this@FlashScreenActivity, MainActivity::class.java)
             }
-            startActivity(i) //start new activity
+            progressBarFlashScreen.visibility = View.INVISIBLE
+            startActivity(i)
             finish()
         }, 3000)
     }

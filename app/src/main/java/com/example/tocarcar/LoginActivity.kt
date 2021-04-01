@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tocarcar.api.LoginRegistrationAPI
+import com.example.tocarcar.utility.Validator
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
@@ -22,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar?.hide()
         sharedPreferences = applicationContext.getSharedPreferences(Constants.MY_PREFERENCES,
             MODE_PRIVATE)
 
@@ -30,11 +32,26 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            progressBarLogin.visibility = View.VISIBLE
             val email: String = etEmailLogin.text.toString().trim()
             val password: String = etPasswordLogin.text.toString().trim()
-            verifyUser(email, password)
+            if(validateInputs(email, password)){
+                progressBarLogin.visibility = View.VISIBLE
+                verifyUser(email, password)
+            }
         }
+    }
+
+    private fun validateInputs(email: String, password: String) : Boolean {
+        var result = true
+        if(!Validator.isValidEmailAddress(email)){
+            etEmailLogin.error = "Invalid Email"
+            result = false
+        }
+        if(!Validator.isValidPassword(password)){
+            etPasswordLogin.error = "Password must be more than 6 characters"
+            result = false
+        }
+        return result
     }
 
     private fun verifyUser(email: String, password: String) {

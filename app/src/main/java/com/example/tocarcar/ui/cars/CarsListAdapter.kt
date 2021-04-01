@@ -29,7 +29,12 @@ class CarsListAdapter (private val carList: List<Car>, private val listener: Car
             val car = carList[position]
             with(holder.binding) {
                 println("CarModel ${car.modelName}")
-                tvCarDetailsCardView.text = car.modelName
+                val carStr = "Company - ${car.companyName}\n"+
+                        "Model - ${car.modelName}\n"+
+                        "Year - ${car.year}\n"+
+                        "License Plate - ${car.licensePlate}\n"+
+                        "Mileage - ${car.kms} Kms"
+                tvCarDetailsCardView.text = carStr
                 root.setOnClickListener{
                     listener.displayCar(position)
                 }

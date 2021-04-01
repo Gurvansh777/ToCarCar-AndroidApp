@@ -49,6 +49,14 @@ class PostingsFragment : Fragment() {
             adapter = PostingsListAdapter(it)
             binding.recyclerViewPostingsList.adapter = adapter
             binding.recyclerViewPostingsList.layoutManager = LinearLayoutManager(activity)
+            if(it.isEmpty()){
+                binding.tvNoPostingsFound.setText("No postings found \n   ${args.car.companyName} - ${args.car.modelName}")
+                binding.recyclerViewPostingsList.visibility = View.INVISIBLE
+                binding.tvNoPostingsFound.visibility = View.VISIBLE
+            }else{
+                binding.recyclerViewPostingsList.visibility = View.VISIBLE
+                binding.tvNoPostingsFound.visibility = View.INVISIBLE
+            }
         })
 
         binding.floatingBtnAddPosting.setOnClickListener {

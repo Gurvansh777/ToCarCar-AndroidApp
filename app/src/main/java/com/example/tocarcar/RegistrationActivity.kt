@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tocarcar.api.LoginRegistrationAPI
 import com.example.tocarcar.entity.User
+import com.example.tocarcar.utility.Validator
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_registration.*
 import okhttp3.MultipartBody
@@ -21,6 +22,7 @@ class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+        supportActionBar?.hide()
 
         btnSaveReg.setOnClickListener {
             val firstName = etFirstNameReg.text.toString().trim()
@@ -28,13 +30,37 @@ class RegistrationActivity : AppCompatActivity() {
             val email = etEmailReg.text.toString().trim()
             val password = etPasswordReg.text.toString().trim()
             val confirmPassword = etConfirmPasswordReg.text.toString().trim()
-            if (password == confirmPassword) {
+            if(validateInputs(firstName, lastName, email, password, confirmPassword)){
                 val user = User(firstName, lastName, email, password)
                 addUser(user)
-            } else {
-                Toast.makeText(applicationContext, "Passwords does not match!", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun validateInputs(firstName: String, lastName: String, email: String, password: String, confirmPassword: String): Boolean {
+        var result = true
+        if(firstName.isEmpty()){
+            etFirstNameReg.error = "Cannot be blank"
+            result = false
+        }
+        if(lastName.isEmpty()){
+            etLastNameReg.error = "Cannot be blank"
+            result = false
+        }
+        if(!Validator.isValidEmailAddress(email)){
+            etEmailReg.error = "Invalid Email"
+            result = false
+        }
+        if(!Validator.isValidPassword(password)){
+            etPasswordReg.error = "Must be more than 6 characters"
+            result = false
+        }
+        if(password != confirmPassword){
+            etPasswordReg.error = "Passwords does not match"
+            etConfirmPasswordReg.error = "Passwords does not match"
+            result = false
+        }
+        return result
     }
 
     private fun addUser(user: User) {
@@ -56,10 +82,7 @@ class RegistrationActivity : AppCompatActivity() {
         addUser.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
                 if (response?.body()?.get("useradded").toString().toInt() != 1) {
-                    Toast.makeText(applicationContext,
-                        "This Email is already registered!",
-                        Toast.LENGTH_LONG)
-                        .show()
+                    etEmailReg.error = "This email is already registered"
                 } else {
                     Toast.makeText(applicationContext,
                         "User Added! Please login",

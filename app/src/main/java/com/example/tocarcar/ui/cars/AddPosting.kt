@@ -31,7 +31,7 @@ class AddPosting : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentAddPostingBinding.inflate(inflater, container, false)
-        binding.tvCarLicensePlate.text = args.car.licensePlate
+        binding.tvCarLicensePlate.text = "${args.car.companyName} ${args.car.modelName} - ${args.car.licensePlate}"
         sharedPreferences = requireActivity().getApplicationContext().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
 

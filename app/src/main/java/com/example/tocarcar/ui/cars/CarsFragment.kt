@@ -55,7 +55,15 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
             adapter = CarsListAdapter(it, this)
             binding.recyclerViewCarsList.adapter = adapter
             binding.recyclerViewCarsList.layoutManager = LinearLayoutManager(activity)
+            if(it.isEmpty()){
+                binding.recyclerViewCarsList.visibility = View.INVISIBLE
+                binding.tvNoCarsFound.visibility = View.VISIBLE
+            }else{
+                binding.recyclerViewCarsList.visibility = View.VISIBLE
+                binding.tvNoCarsFound.visibility = View.INVISIBLE
+            }
         })
+
         return binding.root
     }
 
