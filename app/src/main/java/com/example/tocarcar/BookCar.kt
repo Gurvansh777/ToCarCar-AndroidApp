@@ -19,6 +19,7 @@ import com.example.tocarcar.entity.Posting
 import com.example.tocarcar.ui.cars.AddPostingArgs
 import com.example.tocarcar.utility.JsonHelper
 import com.google.gson.JsonObject
+import kotlinx.android.synthetic.main.fragment_book_car.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +45,9 @@ class BookCar : Fragment() {
         var postingDetails = "${car.year} ${car.companyName} ${car.modelName}"
         postingDetails += "\nMileage - ${car.kms} kms"
         binding.postingDetailsInBooking.text = postingDetails
+
+        val resID: Int = requireActivity().getApplicationContext().getResources().getIdentifier(car.photo, "drawable", requireActivity().getApplicationContext().packageName)
+        binding.imageViewCarInBookCar.setImageResource(resID)
 
 
         binding.bookCarButtonInBooking.setOnClickListener{

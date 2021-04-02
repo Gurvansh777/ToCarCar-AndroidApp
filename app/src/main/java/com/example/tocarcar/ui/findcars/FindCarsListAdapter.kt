@@ -1,5 +1,6 @@
 package com.example.tocarcar.ui.findcars
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import com.example.tocarcar.R
 import com.example.tocarcar.databinding.CardViewFindCarBinding
 import com.example.tocarcar.entity.Posting
 
-class FindCarsListAdapter (private val allPostingsList: List<Posting>, private val listener: AllPostingsListItemListener) :
+class FindCarsListAdapter (private val allPostingsList: List<Posting>, private val listener: AllPostingsListItemListener, val context: Context) :
         RecyclerView.Adapter<FindCarsListAdapter.ViewHolder>() {
 
 
@@ -33,6 +34,9 @@ class FindCarsListAdapter (private val allPostingsList: List<Posting>, private v
                         "${posting.car.year}\n"+
                         "Available - ${posting.dateFrom} to ${posting.dateTo}\n"+
                         "Rent per day - $${posting.rentPerDay}"
+
+                val resID: Int = context.getResources().getIdentifier(posting.car.photo, "drawable", context.packageName)
+                imageViewFindCar.setImageResource(resID)
 
                 root.setOnClickListener{
                     listener.displayPosting(position)

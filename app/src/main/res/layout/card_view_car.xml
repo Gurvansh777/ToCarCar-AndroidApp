@@ -21,7 +21,7 @@
             >
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewCar"
                 android:tag="image_tag"
                 android:layout_width="60dp"
                 android:layout_height="120dp"

@@ -10,6 +10,7 @@ data class Car(
     var licensePlate: String = "",
     var year : Int = 0,
     var kms : Int = 0,
-    var ownerEmail: String = ""
+    var ownerEmail: String = "",
+    var photo: String = ""
 ) : Parcelable
 

@@ -44,9 +44,11 @@ class addCar : Fragment() {
             val yearStr = etYearAddCar.text.toString()
             val kmsStr = etKmsAddCar.text.toString()
             val email = sharedPreferences.getString(Constants.USER_EMAIL, "")
+            var randomNumber = (1..15).random()
+            val photo = "car$randomNumber"
 
             if (validateInputs(companyName, modelName, licensePlate, yearStr, kmsStr)) {
-                val carObj = Car(companyName, modelName, licensePlate, yearStr.toInt(), kmsStr.toInt(), email!!)
+                val carObj = Car(companyName, modelName, licensePlate, yearStr.toInt(), kmsStr.toInt(), email!!, photo)
                 addCar(carObj)
                 findNavController().navigateUp()
             }

@@ -46,7 +46,7 @@ class FindCarsFragment : Fragment() , FindCarsListAdapter.AllPostingsListItemLis
 
         getAllPostedCars()
         findCarsViewModel.allPostingsList.observe(viewLifecycleOwner, {
-            adapter = FindCarsListAdapter(it, this)
+            adapter = FindCarsListAdapter(it, this, requireActivity().getApplicationContext())
             binding.recyclerViewFindCarsList.adapter = adapter
             binding.recyclerViewFindCarsList.layoutManager = LinearLayoutManager(activity)
         })

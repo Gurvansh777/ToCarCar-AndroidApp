@@ -26,4 +26,5 @@
     <string name="year">Year</string>
     <string name="mileage">Mileage (Kms)</string>
     <string name="add_car">Add Car</string>
+    <string name="no_postings_found">No postings found</string>
 </resources>

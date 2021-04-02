@@ -21,6 +21,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.android.synthetic.main.fragment_postings.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +44,10 @@ class PostingsFragment : Fragment() {
         sharedPreferences = requireActivity().getApplicationContext().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
         carsViewModel = ViewModelProvider(this).get(CarsViewModel::class.java)
+
+        var textViewText : String = "This is the list of postings for your ${args.car.year} ${args.car.companyName} ${args.car.modelName}"
+        binding.textViewPostings.setText(textViewText)
+
         getUserPostings()
 
         carsViewModel.postingsList.observe(viewLifecycleOwner, {

@@ -1,5 +1,6 @@
 package com.example.tocarcar.ui.cars
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -52,7 +53,7 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
 
         carsViewModel.carsList.observe(viewLifecycleOwner, {
             println("I m in observe")
-            adapter = CarsListAdapter(it, this)
+            adapter = CarsListAdapter(it, this, requireActivity().getApplicationContext())
             binding.recyclerViewCarsList.adapter = adapter
             binding.recyclerViewCarsList.layoutManager = LinearLayoutManager(activity)
             if(it.isEmpty()){

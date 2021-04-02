@@ -1,14 +1,18 @@
 package com.example.tocarcar.ui.cars
 
+import android.content.Context
+import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tocarcar.R
 import com.example.tocarcar.databinding.CardViewCarBinding
 import com.example.tocarcar.entity.Car
 
-class CarsListAdapter (private val carList: List<Car>, private val listener: CarsListItemListener) :
+class CarsListAdapter (private val carList: List<Car>, private val listener: CarsListItemListener, val context: Context) :
         RecyclerView.Adapter<CarsListAdapter.ViewHolder>() {
 
 
@@ -35,6 +39,11 @@ class CarsListAdapter (private val carList: List<Car>, private val listener: Car
                         "License Plate - ${car.licensePlate}\n"+
                         "Mileage - ${car.kms} Kms"
                 tvCarDetailsCardView.text = carStr
+
+                val resID: Int = context.getResources().getIdentifier(car.photo, "drawable", context.packageName)
+                //Log.i("RES_ID", resID.toString())
+                //Log.i("RES_ID", R.drawable.car11.toString())
+                imageViewCar.setImageResource(resID)
                 root.setOnClickListener{
                     listener.displayCar(position)
                 }
