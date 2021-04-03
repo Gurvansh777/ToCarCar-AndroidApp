@@ -1,5 +1,6 @@
 package com.example.tocarcar.ui.cars
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import com.example.tocarcar.R
 import com.example.tocarcar.databinding.CardViewPostingBinding
 import com.example.tocarcar.entity.Posting
 
-class PostingsListAdapter (private val postingsList: List<Posting>) :
+class PostingsListAdapter (private val postingsList: List<Posting>, private val listener: PostingsListAdapter.PostingsListItemListener , val context: Context) :
         RecyclerView.Adapter<PostingsListAdapter.ViewHolder>() {
 
         inner class ViewHolder(itemView: View) :
@@ -27,20 +28,25 @@ class PostingsListAdapter (private val postingsList: List<Posting>) :
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val posting = postingsList[position]
             with(holder.binding) {
-                var postingStr = "Car - ${posting.car.companyName} ${posting.car.modelName}\n"+
-                        "License Plate - ${posting.car.licensePlate}\n"+
-                        "Availability - ${posting.dateFrom} to ${posting.dateTo}\n"
-                postingStr += if(posting.isApproved == 0){
-                    "Posting Status - Waiting for approval\n"
+                var postingStr = "Availability - ${posting.dateFrom} to ${posting.dateTo}\n"
+                if(posting.isApproved == 0){
+                    postingStr += "Posting Status - Waiting for approval\n"
                 }else{
                     postingStr += "Posting Status - Live\n"
                 }
                 if(posting.isBooked == 1){
                     postingStr +=   "Booking Status - Booked"
+                    //actionViewPosting.setImageResource(R.drawable.ic_booked_background)
                 }
-
                 tvPostingDetailsCardView.setText(postingStr)
-            }
 
+                root.setOnClickListener{
+                    listener.displayEditPosting(position)
+                }
+            }
         }
+
+    interface PostingsListItemListener {
+        fun displayEditPosting(postingPosition: Int)
+    }
 }

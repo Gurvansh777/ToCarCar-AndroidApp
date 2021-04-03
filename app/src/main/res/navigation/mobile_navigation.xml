@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_postingsFragment_to_addPosting"
             app:destination="@id/addPosting" />
+        <action
+            android:id="@+id/action_postingsFragment_to_editPosting"
+            app:destination="@id/editPosting" />
     </fragment>
     <fragment
         android:id="@+id/addPosting"
@@ -71,5 +74,13 @@
         <action
             android:id="@+id/action_bookCar_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPosting"
+        android:name="com.example.tocarcar.EditPosting"
+        android:label="EditPosting" >
+        <argument
+            android:name="editPosting"
+            app:argType="com.example.tocarcar.entity.Posting" />
     </fragment>
 </navigation>

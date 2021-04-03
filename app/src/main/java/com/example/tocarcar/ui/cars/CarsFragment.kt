@@ -57,6 +57,7 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
             binding.recyclerViewCarsList.adapter = adapter
             binding.recyclerViewCarsList.layoutManager = LinearLayoutManager(activity)
             if(it.isEmpty()){
+                binding.tvNoCarsFound.setText("No cars added yet!")
                 binding.recyclerViewCarsList.visibility = View.INVISIBLE
                 binding.tvNoCarsFound.visibility = View.VISIBLE
             }else{

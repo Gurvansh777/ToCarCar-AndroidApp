@@ -4,19 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/black"
     tools:context=".ui.cars.PostingsFragment" >
+
+    <ImageView
+        android:id="@+id/imageViewCarInPostings"
+        android:layout_width="218dp"
+        android:layout_height="138dp"
+        android:contentDescription="@string/title_findCars"
+        android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.219" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPostingsList"
-        android:layout_width="395dp"
-        android:layout_height="511dp"
+        android:layout_width="402dp"
+        android:layout_height="373dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.705" />
+        app:layout_constraintVertical_bias="0.812" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBtnAddPosting"
@@ -35,7 +48,6 @@
         android:id="@+id/tvNoPostingsFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_postings_found"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -43,14 +55,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintVertical_bias="0.444" />
 
     <TextView
         android:id="@+id/textViewPostings"
-        android:layout_width="367dp"
-        android:layout_height="102dp"
+        android:layout_width="366dp"
+        android:layout_height="73dp"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

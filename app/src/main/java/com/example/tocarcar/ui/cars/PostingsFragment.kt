@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,8 +28,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.reflect.jvm.internal.impl.renderer.ClassifierNamePolicy
 
-class PostingsFragment : Fragment() {
+class PostingsFragment : Fragment(), PostingsListAdapter.PostingsListItemListener {
 
     lateinit var binding: FragmentPostingsBinding
     val args: PostingsFragmentArgs by navArgs()
@@ -48,14 +50,17 @@ class PostingsFragment : Fragment() {
         var textViewText : String = "This is the list of postings for your ${args.car.year} ${args.car.companyName} ${args.car.modelName}"
         binding.textViewPostings.setText(textViewText)
 
+        val resID: Int = requireActivity().getApplicationContext().getResources().getIdentifier(args.car.photo, "drawable", requireActivity().getApplicationContext().packageName)
+        binding.imageViewCarInPostings.setImageResource(resID)
+
         getUserPostings()
 
         carsViewModel.postingsList.observe(viewLifecycleOwner, {
-            adapter = PostingsListAdapter(it)
+            adapter = PostingsListAdapter(it, this, requireActivity().getApplicationContext())
             binding.recyclerViewPostingsList.adapter = adapter
             binding.recyclerViewPostingsList.layoutManager = LinearLayoutManager(activity)
             if(it.isEmpty()){
-                binding.tvNoPostingsFound.setText("No postings found \n   ${args.car.companyName} - ${args.car.modelName}")
+                binding.tvNoPostingsFound.setText("No postings found")
                 binding.recyclerViewPostingsList.visibility = View.INVISIBLE
                 binding.tvNoPostingsFound.visibility = View.VISIBLE
             }else{
@@ -116,5 +121,18 @@ class PostingsFragment : Fragment() {
         }
         return postings
     }
+
+    override fun displayEditPosting(postingPosition: Int) {
+        val posting = carsViewModel.postingsList.value?.get(postingPosition)
+        if(posting?.isBooked == 0){
+            val action = PostingsFragmentDirections.actionPostingsFragmentToEditPosting(posting!!)
+            findNavController().navigate(action)
+        }
+        else{
+            Toast.makeText(requireActivity().getApplicationContext(), "This posting has been already booked, you can't edit or delete it", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
 
 }
