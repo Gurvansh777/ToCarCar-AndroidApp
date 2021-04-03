@@ -1,4 +1,4 @@
-package com.example.tocarcar
+package com.example.tocarcar.ui.findcars
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,16 +10,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.tocarcar.Constants
 import com.example.tocarcar.api.ApiHelper
-import com.example.tocarcar.databinding.FragmentAddPostingBinding
 import com.example.tocarcar.databinding.FragmentBookCarBinding
-import com.example.tocarcar.databinding.FragmentFindCarsBinding
 import com.example.tocarcar.entity.Car
 import com.example.tocarcar.entity.Posting
-import com.example.tocarcar.ui.cars.AddPostingArgs
 import com.example.tocarcar.utility.JsonHelper
 import com.google.gson.JsonObject
-import kotlinx.android.synthetic.main.fragment_book_car.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,7 +40,9 @@ class BookCar : Fragment() {
         val posting : Posting = args.posting
         val car : Car = posting.car
         var postingDetails = "${car.year} ${car.companyName} ${car.modelName}"
-        postingDetails += "\nMileage - ${car.kms} kms"
+        postingDetails += "\nMileage: ${car.kms} kms"
+        postingDetails += "\nAvailable: ${posting.dateFrom} - ${posting.dateTo}"
+        postingDetails += "\nRent: $${posting.rentPerDay}/per day"
         binding.postingDetailsInBooking.text = postingDetails
 
         val resID: Int = requireActivity().getApplicationContext().getResources().getIdentifier(car.photo, "drawable", requireActivity().getApplicationContext().packageName)
@@ -67,6 +66,10 @@ class BookCar : Fragment() {
             val action = BookCarDirections.actionBookCarToNavigationHome()
             findNavController().navigate(action)
 
+        }
+
+        binding.cancelButtonInBooking.setOnClickListener {
+            findNavController().navigateUp()
         }
 
 

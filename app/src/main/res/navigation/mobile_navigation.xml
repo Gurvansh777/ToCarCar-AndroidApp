@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookCar"
-        android:name="com.example.tocarcar.BookCar"
+        android:name="com.example.tocarcar.ui.findcars.BookCar"
         android:label="fragment_book_car"
         tools:layout="@layout/fragment_book_car" >
         <argument

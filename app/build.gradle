@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.tocarcar"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -77,4 +77,9 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.8.0'
     implementation "com.squareup.moshi:moshi-adapters:1.8.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+
+    //For AnyChart
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+    implementation 'com.android.support:multidex:1.0.3'
+
 }

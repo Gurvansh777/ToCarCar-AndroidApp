@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".BookCar">
+    tools:context=".ui.findcars.BookCar">
 
     <TextView
         android:id="@+id/postingDetailsInBooking"
@@ -22,20 +22,33 @@
 
     <Button
         android:id="@+id/bookCarButtonInBooking"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
-        android:text="Book"
+        android:layout_width="148dp"
+        android:layout_height="47dp"
+        android:text="@string/book"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.848"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876" />
+        app:layout_constraintVertical_bias="0.873" />
+
+    <Button
+        android:id="@+id/cancelButtonInBooking"
+        android:layout_width="148dp"
+        android:layout_height="47dp"
+        android:text="@android:string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.874" />
 
     <ImageView
         android:id="@+id/imageViewCarInBookCar"
         android:layout_width="300dp"
         android:layout_height="200dp"
+        android:contentDescription="@string/title_findCars"
         android:src="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
