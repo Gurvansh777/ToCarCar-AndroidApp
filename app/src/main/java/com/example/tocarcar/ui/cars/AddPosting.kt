@@ -1,11 +1,13 @@
 package com.example.tocarcar.ui.cars
 
+import android.app.DatePickerDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,11 +18,13 @@ import com.example.tocarcar.databinding.FragmentAddPostingBinding
 import com.example.tocarcar.entity.Posting
 import com.example.tocarcar.utility.JsonHelper
 import com.google.gson.JsonObject
+import kotlinx.android.synthetic.main.fragment_add_posting.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class AddPosting : Fragment() {
     lateinit var binding: FragmentAddPostingBinding
@@ -34,6 +38,22 @@ class AddPosting : Fragment() {
         binding.tvCarLicensePlate.text = "${args.car.companyName} ${args.car.modelName} - ${args.car.licensePlate}"
         sharedPreferences = requireActivity().getApplicationContext().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        binding.etDateFrom.setText("$year/$month/$day")
+        binding.etDateTo.setText("$year/$month/$day")
+
+        binding.etDateFrom.setOnClickListener {
+            setDate(binding.etDateFrom)
+        }
+
+        binding.etDateTo.setOnClickListener {
+            setDate(etDateTo)
+        }
 
         binding.btnPost.setOnClickListener {
             val dateFrom = binding.etDateFrom.text.toString().trim()
@@ -49,6 +69,17 @@ class AddPosting : Fragment() {
             findNavController().navigateUp()
         }
         return binding.root
+    }
+
+    private fun setDate(etDate: TextView) {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val dpd = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            etDate.setText("$year/$monthOfYear/$dayOfMonth")
+        }, year, month, day)
+        dpd.show()
     }
 
     private fun addPosting(postingObj: Posting) {

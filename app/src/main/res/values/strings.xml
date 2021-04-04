@@ -28,4 +28,5 @@
     <string name="add_car">Add Car</string>
     <string name="no_postings_found">No postings found</string>
     <string name="book">Book</string>
+    <string name="title_myBookings">MY BOOKINGS</string>
 </resources>

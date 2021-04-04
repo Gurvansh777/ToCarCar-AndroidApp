@@ -21,56 +21,98 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.102" />
 
-    <EditText
+    <TextView
         android:id="@+id/etDateFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/available_from"
         android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="@string/available_from"
+        android:importantForAutofill="no"
         android:textColor="@color/white"
-        android:inputType="date"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.233"
-        android:importantForAutofill="no" />
+        app:layout_constraintVertical_bias="0.233" />
 
-    <EditText
+    <TextView
+        android:id="@+id/etDateFrom2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="@string/available_from"
+        android:importantForAutofill="no"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.178" />
+
+    <TextView
         android:id="@+id/etDateTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="@string/available_to"
-        android:inputType="date"
+        android:importantForAutofill="no"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374"
-        android:importantForAutofill="no" />
+        app:layout_constraintVertical_bias="0.392" />
+
+    <TextView
+        android:id="@+id/etDateTo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="@string/available_to"
+        android:importantForAutofill="no"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.336" />
 
     <EditText
         android:id="@+id/etRentPerDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="@string/rent_per_day"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.525" />
 
     <Button
         android:id="@+id/btnPost"
@@ -82,5 +124,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.653" />
+        app:layout_constraintVertical_bias="0.689" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,10 @@
         android:icon="@drawable/ic_baseline_directions_car_24"
         android:title="@string/title_findCars" />
 
+    <item
+        android:id="@+id/navigation_mybookings"
+        android:icon="@drawable/ic_baseline_view_list_24"
+        android:title="@string/title_myBookings" />
 
     <item
         android:id="@+id/navigation_cars"

@@ -83,4 +83,9 @@
             android:name="editPosting"
             app:argType="com.example.tocarcar.entity.Posting" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_mybookings"
+        android:name="com.example.tocarcar.ui.bookings.MyBookingsFragment"
+        android:label="my_bookings_fragment"
+        tools:layout="@layout/my_bookings_fragment" />
 </navigation>

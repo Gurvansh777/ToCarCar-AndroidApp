@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.tocarcar.Constants
 import com.example.tocarcar.R
@@ -25,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class addCar : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var carsViewModel: CarsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,8 @@ class addCar : Fragment() {
     ): View? {
         sharedPreferences = requireActivity().getApplicationContext().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
+        carsViewModel = ViewModelProvider(this).get(CarsViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_add_car, container, false)
     }
 
@@ -88,6 +92,9 @@ class addCar : Fragment() {
 
 
     private fun addCar(car: Car) {
+        //local copy
+        carsViewModel.addCar(car)
+
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
         val apiHelperService = retroFit.create(ApiHelper::class.java)
