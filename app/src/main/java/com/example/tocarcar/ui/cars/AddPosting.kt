@@ -58,7 +58,7 @@ class AddPosting : Fragment() {
         binding.btnPost.setOnClickListener {
             val dateFrom = binding.etDateFrom.text.toString().trim()
             val dateTo = binding.etDateTo.text.toString().trim()
-            val rentPerDay : Float = binding.etRentPerDay.text.toString().toFloat()
+            val rentPerDay : Double = binding.etRentPerDay.text.toString().toDouble()
             val email = sharedPreferences.getString(Constants.USER_EMAIL, "")
             val isApproved = 0
             val isBooked = 0

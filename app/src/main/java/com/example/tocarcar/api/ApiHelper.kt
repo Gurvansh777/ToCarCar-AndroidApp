@@ -27,4 +27,8 @@ interface ApiHelper {
     @Headers("objectName: postings", "Content-Type: application/json")
     @POST("/api/updaterecord")
     fun updatePosting(@Body body : String) : Call<JsonObject>
+
+    @Headers("objectName: postings", "Content-Type: application/json")
+    @POST("/api/delete")
+    fun deletePosting(@Body body : String) : Call<JsonObject>
 }

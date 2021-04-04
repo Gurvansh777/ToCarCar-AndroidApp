@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.tocarcar.api.ApiHelper
 import com.example.tocarcar.databinding.FragmentEditPostingBinding
 import com.example.tocarcar.entity.Posting
+import com.example.tocarcar.ui.findcars.BookCarDirections
 import com.example.tocarcar.utility.JsonHelper
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -32,10 +33,10 @@ class EditPosting : Fragment()  {
         binding = FragmentEditPostingBinding.inflate(inflater, container, false)
         binding.tvCarDetailsEditPosting.text = "${args.editPosting.car.companyName} ${args.editPosting.car.modelName} - ${args.editPosting.car.licensePlate}"
 
-        binding.etDateFromEditPosting.setText(args.editPosting.dateFrom.toString())
-        binding.etDateToEditPosting.setText(args.editPosting.dateTo.toString())
-        binding.etRentPerDayEditPosting.setText(args.editPosting.rentPerDay.toString())
-
+        val editPosting = args.editPosting
+        binding.etDateFromEditPosting.setText(editPosting.dateFrom.toString())
+        binding.etDateToEditPosting.setText(editPosting.dateTo.toString())
+        binding.etRentPerDayEditPosting.setText(editPosting.rentPerDay.toString())
         sharedPreferences = requireActivity().getApplicationContext().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
 
@@ -44,32 +45,67 @@ class EditPosting : Fragment()  {
         }
 
         binding.btnEditPosting.setOnClickListener {
+            val email = sharedPreferences.getString(Constants.USER_EMAIL, "")
 
+            val adapter = JsonHelper.getMoshiPostingAdapter()
+            val postingJSON = adapter.toJson(editPosting)
+            val dateFrom = binding.etDateFromEditPosting.text.toString().trim()
+            val dateTo = binding.etDateToEditPosting.text.toString().trim()
+            val rentPerDay : Double = binding.etRentPerDayEditPosting.text.toString().toDouble()
+
+            var updateString = "\"dateFrom\": \"$dateFrom\", \"dateTo\": \"$dateTo\", \"rentPerDay\": $rentPerDay "
+
+            var requestBody = JsonHelper.getUpdateRequestBody(postingJSON, updateString)
+
+            Log.i("EDIT_POSTING", requestBody)
+
+            editPosting(requestBody)
+
+            findNavController().navigateUp()
         }
 
         binding.btnDeletePosting.setOnClickListener {
+            val adapter = JsonHelper.getMoshiPostingAdapter()
+            val postingJSON = adapter.toJson(editPosting)
 
+            deletePosting(postingJSON)
+            findNavController().navigateUp()
         }
         return binding.root
     }
 
-    private fun editPosting(postingObj: Posting) {
+    private fun editPosting(requestBody: String) {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
         val apiHelperService = retroFit.create(ApiHelper::class.java)
 
-        val adapter = JsonHelper.getMoshiPostingAdapter()
-        val requestBody: String = adapter.toJson(postingObj)
+        val updateCar: Call<JsonObject> = apiHelperService.updatePosting(requestBody)
 
-        val addCar: Call<JsonObject> = apiHelperService.addPosting(requestBody)
-
-        addCar.enqueue(object : Callback<JsonObject> {
+        updateCar.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
                 Log.i("RESPONSE", response?.body().toString())
             }
 
             override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
-                Log.e("CAR_ADD_FAILED", t?.message.toString())
+                Log.e("POSTING_UPDATE_FAILED", t?.message.toString())
+            }
+        })
+    }
+
+    private fun deletePosting(requestBody: String) {
+        val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        val apiHelperService = retroFit.create(ApiHelper::class.java)
+
+        val deletePosting: Call<JsonObject> = apiHelperService.deletePosting(requestBody)
+
+        deletePosting.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
+                Log.i("RESPONSE", response?.body().toString())
+            }
+
+            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
+                Log.e("POSTING_DELETE_FAILED", t?.message.toString())
             }
         })
     }
