@@ -34,7 +34,7 @@ class MyBookingsListAdapter(private val bookingsList: List<Posting>, private val
                         "Year - ${booking.car.year}\n"+
                         "Booked - ${booking.dateFrom} to ${booking.dateTo}\n"+
                         "Rent - $${booking.rentPerDay} per day\n"+
-                        "Booking Status - Confirmed\nBooked By - ${booking.bookedBy}"
+                        "Booking Status - Confirmed"
 
                 tvBookingDetailsCardView.text = carStr
 

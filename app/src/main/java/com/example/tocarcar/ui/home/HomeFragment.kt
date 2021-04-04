@@ -3,6 +3,7 @@ package com.example.tocarcar.ui.home
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +18,23 @@ import com.anychart.charts.Pie
 import com.example.tocarcar.Constants
 import com.example.tocarcar.FlashScreenActivity
 import com.example.tocarcar.R
+import com.example.tocarcar.api.ApiHelper
 import com.example.tocarcar.databinding.FragmentHomeBinding
+import com.example.tocarcar.entity.Posting
 import com.example.tocarcar.ui.cars.CarsFragmentDirections
+import com.google.gson.JsonArray
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.android.synthetic.main.fragment_cars.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.Retrofit.*
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.ArrayList
 import kotlin.reflect.jvm.internal.impl.protobuf.LazyStringArrayList
 
@@ -40,8 +55,10 @@ class HomeFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences(Constants.MY_PREFERENCES,
             AppCompatActivity.MODE_PRIVATE)
 
-        val firstName = sharedPreferences.getString(Constants.USER_FIRST_NAME, "")
-        val lastName = sharedPreferences.getString(Constants.USER_LAST_NAME, "")
+        var firstName = sharedPreferences.getString(Constants.USER_FIRST_NAME, "")
+        firstName = firstName?.replace("\"", "")
+        var lastName = sharedPreferences.getString(Constants.USER_LAST_NAME, "")
+        lastName = lastName?.replace("\"", "")
         homeBinding.textViewWelcomeHome.text = "Welcome $firstName $lastName"
 
         anyChartView = homeBinding.anyChartViewId
@@ -65,23 +82,92 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupPieChart(){
-        var months=  arrayOf("Jan", "Feb", "Mar")
-        var earnings: IntArray = intArrayOf(10, 20, 30)
 
-        var pie: Pie = AnyChart.pie()
+        val retroFit = Builder().baseUrl(Constants.BASE_URL_API)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        val apiHelperService = retroFit.create(ApiHelper::class.java)
 
-        var dataEntries =  ArrayList<DataEntry>()
+        val emailOfLoggedInUser = sharedPreferences.getString(Constants.USER_EMAIL, "")
 
-        var i: Int = 0
+        val requestBody: String = "{ \"car.ownerEmail\": \"" + emailOfLoggedInUser + "\" }"
 
-        while (i < months.size) {
-            dataEntries.add(ValueDataEntry(months[i], earnings[i]))
-            i++
+        val getUserPostings: Call<JsonArray> = apiHelperService.getUserPostings(requestBody)
+
+        getUserPostings.enqueue(object : Callback<JsonArray> {
+            override fun onResponse(call: Call<JsonArray>?, response: Response<JsonArray>?) {
+                val jsonPostings = response?.body().toString()
+                Log.i("USERPOSTINGS", jsonPostings)
+                var postingsList = getPostingsFromJson(jsonPostings)
+
+                if(postingsList.size > 0){
+                    var unApprovedPostingsCount = 0
+                    var approvedPostingsCount = 0
+                    var bookedPostingsCount = 0
+                    for(posting in postingsList){
+                        if(posting.isApproved == 0){
+                            unApprovedPostingsCount++
+                        }
+                        else{
+                            if(posting.isBooked == 1){
+                                bookedPostingsCount++
+                            }
+                            else{
+                                approvedPostingsCount++
+                            }
+                        }
+                    }
+
+                    var months=  arrayOf("Unapproved Postings", "Approved Postings", "Booked Postings")
+                    var earnings: IntArray = intArrayOf(unApprovedPostingsCount, approvedPostingsCount, bookedPostingsCount)
+
+                    var pie: Pie = AnyChart.pie()
+
+                    var dataEntries =  ArrayList<DataEntry>()
+
+                    var i: Int = 0
+
+                    while (i < months.size) {
+                        dataEntries.add(ValueDataEntry(months[i], earnings[i]))
+                        i++
+                    }
+
+                    pie.data(dataEntries)
+
+                    anyChartView.setChart(pie)
+                    noPostingsTextview.visibility = View.INVISIBLE
+                    anyChartView.visibility = View.VISIBLE
+                }
+
+                else{
+                    noPostingsTextview.setText("No posting added yet!")
+                    anyChartView.visibility = View.INVISIBLE
+                    noPostingsTextview.visibility = View.VISIBLE
+                }
+
+            }
+
+            override fun onFailure(call: Call<JsonArray>?, t: Throwable?) {
+                Log.e("USER_POSTINGS_FAILED", t?.message.toString())
+            }
+        })
+
+
+
+    }
+
+    fun getPostingsFromJson(text: String): List<Posting>{
+        var postings: List<Posting> = ArrayList();
+        try{
+            val myType = Types.newParameterizedType(List::class.java, Posting::class.java)
+            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+            val adapter: JsonAdapter<List<Posting>> = moshi.adapter(myType)
+
+            postings = (adapter.fromJson(text))!!.toList();
+            println("POSTINGS: $postings")
         }
-
-        pie.data(dataEntries)
-
-        anyChartView.setChart(pie)
-
+        catch (e: Exception){
+            println("Error" + e.message)
+        }
+        return postings
     }
 }

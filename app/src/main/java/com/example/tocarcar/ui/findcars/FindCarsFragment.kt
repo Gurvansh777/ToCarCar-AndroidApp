@@ -21,6 +21,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.android.synthetic.main.fragment_find_cars.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,7 +70,16 @@ class FindCarsFragment : Fragment() , FindCarsListAdapter.AllPostingsListItemLis
                 val jsonPostings = response?.body().toString()
                 Log.i("ALL_POSTINGS", jsonPostings)
                 var postingsList = getPostingsFromJson(jsonPostings)
-                findCarsViewModel.allPostingsList.value = postingsList
+                if(postingsList.size  > 0){
+                    noCarsInFindcars.visibility = View.INVISIBLE
+                    findCarsViewModel.allPostingsList.value = postingsList
+                }
+                else{
+                    noCarsInFindcars.visibility = View.VISIBLE
+                    noCarsInFindcars.setText("No cars available to book right now. You can check again later.")
+                }
+
+
             }
 
             override fun onFailure(call: Call<JsonArray>?, t: Throwable?) {
