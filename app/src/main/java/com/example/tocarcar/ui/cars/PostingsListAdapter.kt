@@ -29,6 +29,7 @@ class PostingsListAdapter (private val postingsList: List<Posting>, private val 
             val posting = postingsList[position]
             with(holder.binding) {
                 var postingStr = "Availability - ${posting.dateFrom} to ${posting.dateTo}\n"
+                postingStr += "Rent - $${posting.rentPerDay} per day\n"
                 if(posting.isApproved == 0){
                     postingStr += "Posting Status - Waiting for approval\n"
                 }else{

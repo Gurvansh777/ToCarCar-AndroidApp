@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -24,6 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddPosting : Fragment() {
@@ -58,17 +60,38 @@ class AddPosting : Fragment() {
         binding.btnPost.setOnClickListener {
             val dateFrom = binding.etDateFrom.text.toString().trim()
             val dateTo = binding.etDateTo.text.toString().trim()
-            val rentPerDay : Double = binding.etRentPerDay.text.toString().toDouble()
+            val rentPerDayStr = binding.etRentPerDay.text.toString()
             val email = sharedPreferences.getString(Constants.USER_EMAIL, "")
             val isApproved = 0
             val isBooked = 0
             val bookedBy = ""
-
-            val postingObj = Posting(args.car, email!!, dateFrom, dateTo, rentPerDay, isApproved, isBooked, bookedBy)
-            addPosting(postingObj)
-            findNavController().navigateUp()
+            if(validateInputs(dateFrom, dateTo, rentPerDayStr)){
+                val postingObj = Posting(args.car, email!!, dateFrom, dateTo, rentPerDayStr.toDouble(), isApproved, isBooked, bookedBy)
+                addPosting(postingObj)
+                findNavController().navigateUp()
+            }
         }
         return binding.root
+    }
+
+    private fun validateInputs(dateFrom: String, dateTo: String, rentPerDay: String): Boolean {
+        var result = true
+        if(rentPerDay.isBlank()){
+            binding.etRentPerDay.error = "Cannot be blank"
+            result = false
+        }
+
+        val sdf : SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd")
+        val dtFrom : Date = sdf.parse(dateFrom)
+        val dtTo : Date = sdf.parse(dateTo)
+        val dtCmp = dtTo.compareTo(dtFrom)
+
+        if(dtCmp <= 0){
+            Toast.makeText(requireActivity(), "Date from cannot be less than or equal to Date to", Toast.LENGTH_LONG).show()
+            result = false
+        }
+
+        return result
     }
 
     private fun setDate(etDate: TextView) {

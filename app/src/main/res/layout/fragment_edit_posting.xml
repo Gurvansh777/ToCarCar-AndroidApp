@@ -21,16 +21,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.102" />
 
-    <EditText
+    <TextView
         android:id="@+id/etDateFromEditPosting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:ems="10"
         android:hint="@string/available_from"
+        android:textSize="20sp"
         android:backgroundTint="@color/white"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
-        android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,22 +39,62 @@
         app:layout_constraintVertical_bias="0.233"
         android:importantForAutofill="no" />
 
-    <EditText
+    <TextView
+        android:id="@+id/etDateToEditFrom2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="@string/available_from"
+        android:importantForAutofill="no"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.178" />
+
+    <TextView
         android:id="@+id/etDateToEditPosting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="@string/available_to"
-        android:inputType="date"
+        android:importantForAutofill="no"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374"
-        android:importantForAutofill="no" />
+        app:layout_constraintVertical_bias="0.393" />
+
+    <TextView
+        android:id="@+id/etDateTo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="@string/available_to"
+        android:importantForAutofill="no"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.336" />
 
     <EditText
         android:id="@+id/etRentPerDayEditPosting"
@@ -76,7 +117,7 @@
         android:id="@+id/btnCancelEditPosting"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:text="Cancel"
+        android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.24"
