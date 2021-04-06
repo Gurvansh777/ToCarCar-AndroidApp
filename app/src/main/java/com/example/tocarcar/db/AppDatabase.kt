@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.tocarcar.entity.Car
 
+/**
+ * Room database helper
+ * @author Harman, Gurvansh
+ */
 @Database(entities = [Car::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 

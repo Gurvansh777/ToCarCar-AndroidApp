@@ -1,5 +1,9 @@
 package com.example.tocarcar
 
+/**
+ * Constants
+ * Note - change base URL
+ */
 class Constants {
     companion object{
         const val BASE_URL_API = "http://34.224.21.237:5000/"

@@ -7,6 +7,10 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.tocarcar.entity.Car
 
+/**
+ * Data access object
+ * @author Harman, Gurvansh
+ */
 @Dao
 interface CarDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

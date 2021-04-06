@@ -25,6 +25,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Fragment to handle postings
+ * @author Harman
+ */
 class EditPosting : Fragment() {
     lateinit var binding: FragmentEditPostingBinding
     val args: EditPostingArgs by navArgs()
@@ -86,6 +90,9 @@ class EditPosting : Fragment() {
         return binding.root
     }
 
+    /**
+     * function to handle validations
+     */
     private fun validateInputs(dateFrom: String, dateTo: String, rentPerDayStr: String): Boolean {
         var result = true
         if (rentPerDayStr.isBlank()) {
@@ -108,6 +115,9 @@ class EditPosting : Fragment() {
         return result
     }
 
+    /**
+     * function to show date picker
+     */
     private fun setDate(etDate: TextView) {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -123,6 +133,9 @@ class EditPosting : Fragment() {
         dpd.show()
     }
 
+    /**
+     * Edit function
+     */
     private fun editPosting(requestBody: String) {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
@@ -141,6 +154,9 @@ class EditPosting : Fragment() {
         })
     }
 
+    /**
+     * Delete function
+     */
     private fun deletePosting(requestBody: String) {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()

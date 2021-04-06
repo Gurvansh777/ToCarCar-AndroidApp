@@ -1,6 +1,5 @@
 package com.example.tocarcar.ui.cars
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +27,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Fragment to show car list
+ * @author Harman
+ */
 class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -82,6 +85,9 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
         super.onResume()
     }
 
+    /**
+     * Api call to get user cars
+     */
     private fun getUserCars() {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
@@ -107,6 +113,9 @@ class CarsFragment : Fragment(), CarsListAdapter.CarsListItemListener {
         })
     }
 
+    /**
+     * Helper function to parse JSON
+     */
     fun getCarsFromJson(text: String): List<Car>{
         var cars: List<Car> = ArrayList();
         try{

@@ -9,6 +9,9 @@ import com.example.tocarcar.R
 import com.example.tocarcar.databinding.CardViewFindCarBinding
 import com.example.tocarcar.entity.Posting
 
+/**
+ * Class to list cars
+ */
 class FindCarsListAdapter (private val allPostingsList: List<Posting>, private val listener: AllPostingsListItemListener, val context: Context) :
         RecyclerView.Adapter<FindCarsListAdapter.ViewHolder>() {
 

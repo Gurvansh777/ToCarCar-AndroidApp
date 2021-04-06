@@ -18,6 +18,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Registration
+ */
 class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,9 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Validations function
+     */
     private fun validateInputs(firstName: String, lastName: String, email: String, password: String, confirmPassword: String): Boolean {
         var result = true
         if(firstName.isEmpty()){
@@ -63,6 +69,9 @@ class RegistrationActivity : AppCompatActivity() {
         return result
     }
 
+    /**
+     * function to add user
+     */
     private fun addUser(user: User) {
         progressBarReg.visibility = View.VISIBLE
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)

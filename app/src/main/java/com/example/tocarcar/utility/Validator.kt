@@ -2,6 +2,10 @@ package com.example.tocarcar.utility
 
 import java.util.regex.Pattern
 
+/**
+ * Validation utils
+ * @author Gurvansh
+ */
 class Validator {
     companion object{
         fun isValidEmailAddress(email: String): Boolean {

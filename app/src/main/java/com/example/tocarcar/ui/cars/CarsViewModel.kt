@@ -11,6 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * Cars view model to add cars to local db
+ */
 class CarsViewModel(app: Application)  : AndroidViewModel(app) {
 
     var carsList = MutableLiveData<List<Car>>()

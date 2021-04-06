@@ -17,6 +17,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Login class
+ */
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -41,6 +44,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * function to validations
+     */
     private fun validateInputs(email: String, password: String) : Boolean {
         var result = true
         if(!Validator.isValidEmailAddress(email)){
@@ -53,7 +59,9 @@ class LoginActivity : AppCompatActivity() {
         }
         return result
     }
-
+    /**
+     * function to verify user api
+     */
     private fun verifyUser(email: String, password: String) {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()

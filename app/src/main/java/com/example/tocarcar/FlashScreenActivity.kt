@@ -8,6 +8,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_flash_screen.*
 
+/**
+ * Flash screen activity
+ */
 class FlashScreenActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 

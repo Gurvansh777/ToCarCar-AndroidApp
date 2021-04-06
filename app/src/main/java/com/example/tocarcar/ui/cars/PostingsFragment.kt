@@ -22,14 +22,16 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.android.synthetic.main.fragment_postings.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.reflect.jvm.internal.impl.renderer.ClassifierNamePolicy
 
+/**
+ * class to manage postings
+ * @author Harman
+ */
 class PostingsFragment : Fragment(), PostingsListAdapter.PostingsListItemListener {
 
     lateinit var binding: FragmentPostingsBinding
@@ -82,6 +84,9 @@ class PostingsFragment : Fragment(), PostingsListAdapter.PostingsListItemListene
         super.onResume()
     }
 
+    /**
+     * api helper to get user postings
+     */
     private fun getUserPostings() {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
@@ -106,6 +111,10 @@ class PostingsFragment : Fragment(), PostingsListAdapter.PostingsListItemListene
             }
         })
     }
+
+    /**
+     * Helper function to parse JSON
+     */
     fun getPostingsFromJson(text: String): List<Posting>{
         var postings: List<Posting> = ArrayList();
         try{

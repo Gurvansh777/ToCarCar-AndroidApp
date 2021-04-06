@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
@@ -17,27 +16,26 @@ import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
 import com.example.tocarcar.Constants
 import com.example.tocarcar.FlashScreenActivity
-import com.example.tocarcar.R
 import com.example.tocarcar.api.ApiHelper
 import com.example.tocarcar.databinding.FragmentHomeBinding
 import com.example.tocarcar.entity.Posting
-import com.example.tocarcar.ui.cars.CarsFragmentDirections
 import com.google.gson.JsonArray
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.android.synthetic.main.fragment_cars.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.Retrofit.*
+import retrofit2.Retrofit.Builder
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.ArrayList
-import kotlin.reflect.jvm.internal.impl.protobuf.LazyStringArrayList
+import java.util.*
 
+/**
+ * class to manage Home display
+ * @author Gurvansh
+ */
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
@@ -75,12 +73,19 @@ class HomeFragment : Fragment() {
         setupPieChart()
     }
 
+    /**
+     * function to handle logout
+     */
     private fun logout() {
         sharedPreferences.edit().clear().apply()
         startActivity(Intent(activity, FlashScreenActivity::class.java))
         requireActivity().finish()
     }
 
+    /**
+     * function to setup Pie Chart
+     * @author Harman
+     */
     private fun setupPieChart(){
 
         val retroFit = Builder().baseUrl(Constants.BASE_URL_API)
@@ -155,6 +160,9 @@ class HomeFragment : Fragment() {
 
     }
 
+    /**
+     * Helper function to parse JSON
+     */
     fun getPostingsFromJson(text: String): List<Posting>{
         var postings: List<Posting> = ArrayList();
         try{

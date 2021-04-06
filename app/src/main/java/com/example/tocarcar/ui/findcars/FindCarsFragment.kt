@@ -15,7 +15,6 @@ import com.example.tocarcar.Constants
 import com.example.tocarcar.api.ApiHelper
 import com.example.tocarcar.databinding.FragmentFindCarsBinding
 import com.example.tocarcar.entity.Posting
-import com.example.tocarcar.ui.cars.CarsFragmentDirections
 import com.google.gson.JsonArray
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -28,6 +27,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Class to find cars to rent
+ * @author Gurvansh
+ */
 class FindCarsFragment : Fragment() , FindCarsListAdapter.AllPostingsListItemListener {
 
     private lateinit var findCarsViewModel: FindCarsViewModel
@@ -54,6 +57,9 @@ class FindCarsFragment : Fragment() , FindCarsListAdapter.AllPostingsListItemLis
         return binding.root
     }
 
+    /**
+     * api call to get all ads
+     */
     private fun getAllPostedCars() {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
@@ -88,6 +94,9 @@ class FindCarsFragment : Fragment() , FindCarsListAdapter.AllPostingsListItemLis
         })
     }
 
+    /**
+     * Helper function to parse JSON
+     */
     fun getPostingsFromJson(text: String): List<Posting>{
         var postings: List<Posting> = ArrayList();
         try{

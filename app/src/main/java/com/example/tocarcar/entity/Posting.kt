@@ -2,7 +2,9 @@ package com.example.tocarcar.entity
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-
+/**
+ * Posting Entity
+ */
 @Parcelize
 data class Posting(
     var car: Car = Car(),

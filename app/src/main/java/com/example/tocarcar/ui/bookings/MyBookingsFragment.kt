@@ -25,6 +25,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Class to manage bookings
+ * @author Gurvansh
+ */
 class MyBookingsFragment : Fragment(), MyBookingsListAdapter.PostingsListItemListener {
 
     private lateinit var viewModel: MyBookingsViewModel
@@ -58,6 +62,9 @@ class MyBookingsFragment : Fragment(), MyBookingsListAdapter.PostingsListItemLis
         return binding.root
     }
 
+    /**
+     * api call to get user bookings
+     */
     private fun getUserBookings() {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()
@@ -82,6 +89,10 @@ class MyBookingsFragment : Fragment(), MyBookingsListAdapter.PostingsListItemLis
             }
         })
     }
+
+    /**
+     * Helper function to parse JSON
+     */
     fun getPostingsFromJson(text: String): List<Posting>{
         var postings: List<Posting> = ArrayList();
         try{

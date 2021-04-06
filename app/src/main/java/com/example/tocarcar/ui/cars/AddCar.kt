@@ -23,6 +23,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Class to manage user cars
+ * @author Harman
+ */
 class addCar : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -59,6 +63,9 @@ class addCar : Fragment() {
         }
     }
 
+    /**
+     * Function to handle validations
+     */
     private fun validateInputs(
         companyName: String,
         modelName: String,
@@ -91,6 +98,9 @@ class addCar : Fragment() {
     }
 
 
+    /**
+     * Api to add cars
+     */
     private fun addCar(car: Car) {
         //local copy
         carsViewModel.addCar(car)

@@ -3,11 +3,11 @@ package com.example.tocarcar.ui.findcars
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tocarcar.Constants
@@ -23,6 +23,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Class to book car
+ * @author Gurvansh
+ */
 class BookCar : Fragment() {
 
     private lateinit var binding : FragmentBookCarBinding
@@ -76,6 +80,9 @@ class BookCar : Fragment() {
         return binding.root
     }
 
+    /**
+     * api call to update posting
+     */
     private fun updatePosting(requestBody: String) {
         val retroFit = Retrofit.Builder().baseUrl(Constants.BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create()).build()

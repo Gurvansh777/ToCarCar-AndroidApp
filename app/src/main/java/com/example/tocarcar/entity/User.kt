@@ -2,6 +2,9 @@ package com.example.tocarcar.entity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+/**
+ * User Entity
+ */
 class User(
     @SerializedName("firstName")
     @Expose

@@ -9,6 +9,9 @@ import com.example.tocarcar.R
 import com.example.tocarcar.databinding.CardViewPostingBinding
 import com.example.tocarcar.entity.Posting
 
+/**
+ * Postings List
+ */
 class PostingsListAdapter (private val postingsList: List<Posting>, private val listener: PostingsListAdapter.PostingsListItemListener , val context: Context) :
         RecyclerView.Adapter<PostingsListAdapter.ViewHolder>() {
 

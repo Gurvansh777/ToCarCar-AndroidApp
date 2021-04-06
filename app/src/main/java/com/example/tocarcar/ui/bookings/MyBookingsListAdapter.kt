@@ -9,6 +9,10 @@ import com.example.tocarcar.R
 import com.example.tocarcar.databinding.CardViewMyBookingsBinding
 import com.example.tocarcar.entity.Posting
 
+/**
+ * List Adapter to set bookings
+ * @author Gurvansh
+ */
 class MyBookingsListAdapter(private val bookingsList: List<Posting>, private val listener: MyBookingsListAdapter.PostingsListItemListener, val context: Context) :
         RecyclerView.Adapter<MyBookingsListAdapter.ViewHolder>() {
 
